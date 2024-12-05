@@ -1,12 +1,18 @@
 ﻿#include <iostream>
 
-#include "day3.h"
+#include "day4.h"
 
-using namespace day3;
+using namespace day4;
 
 int main() {
-  part1();
-  part2();
+  try {
+    part1();
+    part2();
 
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
+  } catch (std::exception e) {
+    std::cerr << e.what() << std::endl;
+
+    return EXIT_FAILURE;
+  }
 }
