@@ -11,7 +11,11 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data
 
 project ("test")
 
-add_compile_options(/W4 /WX /permissive- /Od)
+if(MSVC)
+  add_compile_options(/W4 /WX /permissive- /Od)
+else()
+  add_compile_options(-Werror -Wall -Wextra -pedantic-errors)
+endif(MSVC)
 
 add_executable (test "main.cpp" "include/_day.h" "include/day2.h" "include/day3.h")
 
