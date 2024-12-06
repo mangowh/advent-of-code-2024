@@ -1,8 +1,8 @@
 ﻿#include <iostream>
 
-#include "day4.h"
+#include "day5.h"
 
-using namespace day4;
+using namespace day5;
 
 int main() {
   try {
