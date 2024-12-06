@@ -13,7 +13,7 @@ else()
   add_compile_options(-Werror -Wall -Wextra -pedantic-errors)
 endif(MSVC)
 
-add_executable (test "main.cpp" "include/utils.h")
+add_executable (test "main.cpp" "include/utils.h" "include/day6.h")
 
 target_include_directories(test PRIVATE "./include")
 
