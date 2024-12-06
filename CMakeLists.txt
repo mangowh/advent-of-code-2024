@@ -20,4 +20,4 @@ target_include_directories(test PRIVATE "./include")
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-target_compile_features(test PRIVATE cxx_std_20)
+target_compile_features(test PRIVATE cxx_std_23)

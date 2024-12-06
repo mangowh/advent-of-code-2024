@@ -3,22 +3,22 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <print>
 #include <set>
 #include <sstream>
 #include <string>
-#include <unordered_map>
 #include <utility>
 #include <vector>
 
 namespace day5 {
+
 class Rules {
 public:
-  Rules() {};
-
   void addRule(int a, int b) { data.push_back({a, b}); }
 
   bool checkRow(std::vector<int> row) {
     std::set<int> rowSet(row.begin(), row.end());
+
     for (int i = 0; i < row.size(); i++) {
       const auto item = row[i];
 
@@ -50,6 +50,21 @@ public:
     }
 
     return true;
+  }
+
+  void applyRulesTo(std::vector<int> &row) {
+    while (!checkRow(row)) {
+      for (const auto &[firstValue, secondValue] : data) {
+        const auto firstValIdx = utils::vectorIndexOf(row, firstValue);
+        const auto secondValIdx = utils::vectorIndexOf(row, secondValue);
+
+        if (firstValIdx != -1 && secondValIdx != -1) {
+          if (firstValIdx > secondValIdx) {
+            std::swap(row[firstValIdx], row[secondValIdx]);
+          }
+        }
+      }
+    }
   }
 
   std::set<int> getMatchingValues(int keySearch) {
@@ -117,5 +132,42 @@ inline void part1() {
   std::cout << middleCount << std::endl;
 }
 
-inline void part2() { std::cout << "day5::part2" << std::endl; }
+inline void part2() {
+  std::cout << "day5::part2" << std::endl;
+
+  std::ifstream myfile("./data/day5/input.txt");
+
+  int middleCount{0};
+  bool isRulesSection{true};
+  Rules rules{};
+
+  std::string line;
+  if (!myfile.is_open()) {
+    throw "Can't open file";
+  }
+
+  while (std::getline(myfile, line)) {
+    if (line.size() == 0) {
+      isRulesSection = false;
+    } else if (isRulesSection) {
+      auto values = utils::splitStringByChar<int>(line, '|');
+
+      rules.addRule(values[0], values[1]);
+    } else {
+      auto values = utils::splitStringByChar<int>(line, ',');
+
+      if (!rules.checkRow(values)) {
+        rules.applyRulesTo(values);
+
+        const auto middleIdx = values.size() / 2;
+
+        middleCount += values[middleIdx];
+      }
+    }
+  }
+
+  myfile.close();
+
+  std::cout << middleCount << std::endl;
+}
 } // namespace day5
