@@ -5,19 +5,28 @@
 #include <vector>
 
 namespace utils {
-template <typename T>
-inline std::vector<T> splitStringByChar(std::string str, const char c) {
-  std::vector<T> values;
+inline std::vector<std::string> splitStringByChar(std::string str, const char c) {
+  // old version
+  // std::vector<T> values;
 
-  std::replace(str.begin(), str.end(), c, ' ');
+  // std::replace(str.begin(), str.end(), c, ' ');
 
-  std::stringstream ss(str);
-  T temp;
-  while (ss >> temp) {
-    values.push_back(temp);
+  // std::stringstream ss(str);
+  // T temp;
+  // while (ss >> temp) {
+  //   values.push_back(temp);
+  // }
+
+  // return values;
+
+  std::vector<std::string> result;
+  std::string token;
+  std::istringstream tokenStream(str);
+
+  while (std::getline(tokenStream, token, c)) {
+    result.push_back(token);
   }
-
-  return values;
+  return result;
 }
 
 template <typename T> inline int vectorIndexOf(std::vector<T> vector, T item) {
