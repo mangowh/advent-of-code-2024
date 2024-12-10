@@ -1,9 +1,9 @@
-﻿#include "day9.h"
+﻿#include "day10.h"
 
 #include <chrono>
 #include <iostream>
 
-using namespace day9;
+using namespace day10;
 
 int main() {
   using std::chrono::duration;
